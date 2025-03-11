@@ -1,0 +1,32 @@
+<div class="flex flex-col h-screen bg-gray-50 text-gray-900">
+  <!-- Header -->
+  <div class="bg-purple-700 text-white py-4 px-6 text-lg font-semibold shadow-md fixed top-0 w-full z-10">
+    Gets up - Real-time Chat App
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex flex-col items-center justify-center flex-1 px-6 text-center mt-16">
+    <h1 class="text-4xl font-bold text-purple-700">Welcome to Gets up</h1>
+    <p class="mt-2 text-lg text-gray-700">Create or join rooms and start chatting in real-time.</p>
+
+    <!-- Buttons -->
+    <div class="mt-6 flex space-x-4">
+      <button class="bg-purple-700 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-purple-800 transition">Create Room</button>
+      
+      <!-- Join Room Form -->
+      <div class="flex items-center space-x-2">
+        <input type="text" id="room-code" maxlength="5" placeholder="Enter Room Code" class="px-4 py-3 border border-gray-300 rounded-lg text-lg text-center focus:outline-none focus:ring-2 focus:ring-purple-700">
+        <button onclick="joinRoom()" class="bg-gray-200 text-gray-900 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-300 transition">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function joinRoom() {
+    const roomCode = document.getElementById("room-code").value;
+    if (roomCode.length !== 5) {
+      alert("Please enter a valid 5-digit room code.");
+    }
+  }
+</script>
