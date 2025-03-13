@@ -56,38 +56,43 @@ socket.connect()
 // Now that you are connected, you can join channels with a topic.
 // Let's assume you have a channel with a topic named `room` and the
 // subtopic is its id - in this case 42:
-let channel = socket.channel("room:lobby", {})
+let channel = socket.channel(`room:${window.location.pathname.split("/").pop()}`, {})
 
 let chatInput         = document.querySelector("#chat-input")
 let messagesContainer = document.querySelector("#messages")
 
 chatInput.addEventListener("keypress", event => {
-  if(event.key === 'Enter'){
+  if(event.key === 'Enter' && chatInput.value !== ""){
     channel.push("shout", {body: chatInput.value})
     chatInput.value = ""
   }
 })
 
 channel.on("shout", payload => {
+  let messagesContainer = document.getElementById("messages");
+
   let messageItem = document.createElement("div");
-  messageItem.classList.add("flex", "flex-col", "items-end");
+  messageItem.classList.add("message-container");
 
   let messageBubble = document.createElement("div");
-  messageBubble.classList.add("bg-purple-700", "text-white", "rounded-lg", "p-3", "max-w-xs", "relative");
+  messageBubble.classList.add("message");
+
+  // let isMyMessage = payload.sender === "me"; // Replace with actual user check
+  messageBubble.classList.add(false ? "my-message" : "other-message");
 
   let messageText = document.createElement("p");
   messageText.innerText = payload.body;
 
   let messageTime = document.createElement("span");
-  messageTime.classList.add("text-xs", "text-gray-300", "mt-1", "block", "text-right");
+  messageTime.classList.add("message-time");
   messageTime.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   messageBubble.appendChild(messageText);
   messageBubble.appendChild(messageTime);
   messageItem.appendChild(messageBubble);
-  document.getElementById("messages").appendChild(messageItem);
+  messagesContainer.appendChild(messageItem);
 
-  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
 channel.join()

@@ -1,8 +1,11 @@
 <div class="flex flex-col h-screen w-full bg-white text-gray-900">
-  <!-- Chat Header -->
-  <div class="bg-purple-700 text-white py-4 px-6 text-lg font-semibold shadow-md fixed top-0 w-full z-10">
-    Gets Up
-  </div>
+<!-- Chat Header -->
+<div class="bg-purple-700 text-white py-4 px-6 text-lg font-semibold shadow-md fixed top-0 w-full z-10 flex items-center">
+  <span>Gets Up - <span id="room-id" class="font-mono bg-purple-900 px-2 py-3 rounded text-lg">{@id}</span></span>
+  <button onclick="copyRoomId()" class="ml-2 text-white hover:text-gray-300 transition">
+      <img src="/images/copy.svg" alt="Copy Room ID" class="w-6 h-6" title="Copy Room ID"/>
+  </button>
+</div>
 
   <!-- Messages Container -->
   <div id="messages" role="log" aria-live="polite" class="flex-1 overflow-y-auto p-4 space-y-4 mt-16">
@@ -14,3 +17,13 @@
     <button class="ml-2 bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800 transition">Send</button>
   </div>
 </div>
+
+<script>
+  function copyRoomId() {
+    const roomId = document.getElementById("room-id").innerText;
+    navigator.clipboard.writeText(roomId).then(() => {
+    }).catch(err => {
+      console.error("Failed to copy: ", err);
+    });
+  }
+</script>

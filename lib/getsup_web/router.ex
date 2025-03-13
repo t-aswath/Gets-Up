@@ -19,7 +19,9 @@ defmodule GetsupWeb.Router do
 
     get "/", PageController, :home
 
-    get "/chat", ChatController, :index
+    get "/chat", ChatController, :create
+
+    get "/chat/:id", ChatController, :index
   end
 
   # Other scopes may use custom stacks.

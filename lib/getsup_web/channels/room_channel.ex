@@ -2,8 +2,7 @@ defmodule GetsupWeb.RoomChannel do
   use GetsupWeb, :channel
 
   @impl true
-  def join("room:lobby", _payload, socket) do
-    IO.puts("Joining lobby")
+  def join("room:" <> _room_code, _payload, socket) do
     {:ok, socket}
   end
 
